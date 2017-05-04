@@ -14,7 +14,6 @@ logs/*.log
 
 # Package Files #
 *.jar
-*.war
 *.ear
 *.zip
 *.tar.gz
@@ -26,4 +25,11 @@ hs_err_pid*
 #idea
 .idea/
 *.iml
+
+dcporj-dubbo-client/target/
+dcporj-dubbo-server/target/
+dcporj-model/target/
+dcproj-utils/target/
+dcproj-core/target/
+dcporj-web/target/
 
