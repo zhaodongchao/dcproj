@@ -8,12 +8,12 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>dcporj-model</module>
+        <module>dcproj-model</module>
         <module>dcproj-utils</module>
         <module>dcproj-core</module>
-        <module>dcporj-dubbo-client</module>
-        <module>dcporj-dubbo-server</module>
-        <module>dcporj-web</module>
+        <module>dcproj-dubbo-client</module>
+        <module>dcproj-dubbo-server</module>
+        <module>dcproj-web</module>
     </modules>
     <properties>
         <!-- base setting -->

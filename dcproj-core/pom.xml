@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>org.dongchao</groupId>
-            <artifactId>dcporj-model</artifactId>
+            <artifactId>dcproj-model</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

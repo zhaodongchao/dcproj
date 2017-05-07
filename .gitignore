@@ -26,10 +26,10 @@ hs_err_pid*
 .idea/
 *.iml
 
-dcporj-dubbo-client/target/
-dcporj-dubbo-server/target/
-dcporj-model/target/
+dcproj-dubbo-client/target/
+dcproj-dubbo-server/target/
+dcproj-model/target/
 dcproj-utils/target/
 dcproj-core/target/
-dcporj-web/target/
+dcproj-web/target/
 
