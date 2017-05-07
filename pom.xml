@@ -11,8 +11,8 @@
         <module>dcproj-model</module>
         <module>dcproj-utils</module>
         <module>dcproj-core</module>
-        <module>dcproj-dubbo-client</module>
-        <module>dcproj-dubbo-server</module>
+        <module>dcproj-client</module>
+        <module>dcproj-facade</module>
         <module>dcproj-web</module>
     </modules>
     <properties>
