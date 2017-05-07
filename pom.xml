@@ -26,7 +26,6 @@
         <junit.test>4.12</junit.test>
         <slf4j.version>1.7.1</slf4j.version>
         <log4j.version>1.2.17</log4j.version>
-        <jetty.version>9.4.4.v20170414</jetty.version>
         <database.pool.version>1.0.13</database.pool.version>
         <database.connector.version>5.1.38</database.connector.version>
         <org.springframework.version>4.1.9.RELEASE</org.springframework.version>
@@ -53,11 +52,6 @@
         </plugins>
         <pluginManagement>
             <plugins>
-                <plugin>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-maven-plugin</artifactId>
-                    <version>${jetty.version}</version>
-                </plugin>
                 <!--测试插件-->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -228,6 +222,17 @@
             <id>springsource-repo</id>
             <name>SpringSource Repository</name>
             <url>http://repo.springsource.org/release</url>
+        </repository>
+        <repository>
+            <id>aliyun</id>
+            <name>aliyun nexus</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
         </repository>
     </repositories>
 </project>
