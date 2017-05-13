@@ -26,8 +26,8 @@ hs_err_pid*
 .idea/
 *.iml
 
-dcproj-dubbo-client/target/
-dcproj-dubbo-server/target/
+dcproj-client/target/
+dcproj-facade/target/
 dcproj-model/target/
 dcproj-utils/target/
 dcproj-core/target/
