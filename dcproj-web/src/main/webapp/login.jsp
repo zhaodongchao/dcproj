@@ -33,7 +33,7 @@
 
 <div class="container">
 
-  <form class="form-signin">
+  <form class="form-signin" action="" method="post">
     <h2 class="form-signin-heading">Please sign in</h2>
     <label for="username" class="sr-only">用户名</label>
     <input type="text" id="username" name="username" class="form-control" placeholder="请输入用户名" required autofocus>

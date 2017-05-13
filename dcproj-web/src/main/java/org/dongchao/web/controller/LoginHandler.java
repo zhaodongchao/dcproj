@@ -9,19 +9,20 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  * Created by zhaodongchao on 2017/5/3.
  */
-@RequestMapping("test")
+@RequestMapping("login")
 @Controller
 public class LoginHandler {
     @Autowired
     private UserService userService ;
     @RequestMapping("hello")
     public ModelAndView helloWorld(){
-        ModelAndView modelAndView = new ModelAndView("hello");
+        ModelAndView modelAndView = new ModelAndView("home");
         modelAndView.addObject("users",userService.findAllUser());
         return  modelAndView ;
     }
-    @RequestMapping("home")
+
+    @RequestMapping("success")
     public String goHome(){
-        return "hello" ;
+        return "home";
     }
 }

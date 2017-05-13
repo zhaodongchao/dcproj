@@ -5,7 +5,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -35,7 +34,7 @@ public class User implements Serializable {
     private Set<Role> role;
     @Transient
     @JsonIgnore
-    private List<String> roles = Collections.EMPTY_LIST;
+    private List<String> roles;
 
     public User() {
     }
