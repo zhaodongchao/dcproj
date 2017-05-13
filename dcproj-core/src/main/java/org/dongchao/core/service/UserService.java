@@ -1,7 +1,7 @@
 package org.dongchao.core.service;
 
 import org.dongchao.core.dao.UserDao;
-import org.dongchao.model.User;
+import org.dongchao.model.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

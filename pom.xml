@@ -132,6 +132,12 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+            <!-- JSR303  BeanValidator -->
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${hibernate-validator.version}</version>
+            </dependency>
             <!-- data pool start-->
             <dependency>
                 <groupId>com.alibaba</groupId>

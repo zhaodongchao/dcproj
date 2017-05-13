@@ -1,6 +1,6 @@
 package org.dongchao.core.dao;
 
-import org.dongchao.model.User;
+import org.dongchao.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
