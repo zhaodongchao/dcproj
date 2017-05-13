@@ -36,22 +36,18 @@
   <form class="form-signin">
     <h2 class="form-signin-heading">Please sign in</h2>
     <label for="username" class="sr-only">用户名</label>
-    <input type="email" id="username" name="username" class="form-control" placeholder="请输入用户名" required autofocus>
+    <input type="text" id="username" name="username" class="form-control" placeholder="请输入用户名" required autofocus>
     <label for="password" class="sr-only">Password</label>
     <input type="password" id="password" name="password" class="form-control" placeholder="请输入登录密码" required>
     <div class="checkbox">
       <label>
-        <input type="checkbox" value="remember-me"> Remember me
+        <input type="checkbox" value="remember-me" name="rememberMe"> Remember me
       </label>
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
   </form>
 
-</div> <!-- /container -->
-
-
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<%--<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>--%>
+</div>
 </body>
 </html>
 

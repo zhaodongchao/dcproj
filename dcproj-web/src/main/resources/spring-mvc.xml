@@ -9,7 +9,7 @@
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
     <!--静态资源映射-->
-    <mvc:resources location="/static/" mapping="/static/*"/>
+    <mvc:resources location="/static/" mapping="/static/**"/>
 
     <!-- 处理静态资源  ,当访问上面的映射之外的静态资源时，使用SpringMVC默认的servlet处理
          定义了此标签后必须定义<mvc:annotation-driven/>

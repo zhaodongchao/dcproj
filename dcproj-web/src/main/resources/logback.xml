@@ -8,12 +8,10 @@
         </encoder>
     </appender>
     <!-- ch.qos.logback.core.rolling.RollingFileAppender 文件日志输出 -->
-    <appender name="file"
-              class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <Encoding>UTF-8</Encoding>
-        <File>../logs/dcproj-web.log</File>
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>dcproj-web.log</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>../logs/dcproj-web-%d{yyyy-MM-dd}.log
+            <FileNamePattern>dcproj-web-%d{yyyy-MM-dd}.log
             </FileNamePattern>
             <MaxHistory>10</MaxHistory>
             <TimeBasedFileNamingAndTriggeringPolicy

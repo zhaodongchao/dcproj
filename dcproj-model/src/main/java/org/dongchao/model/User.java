@@ -8,17 +8,20 @@ import javax.persistence.*;
 @Table(name = "cf_user")
 @Entity
 public class User {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    private String id ;
+    private Integer id;
 
     private String name ;
 
-    public String getId() {
+    public User() {
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

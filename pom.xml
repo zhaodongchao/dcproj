@@ -127,10 +127,6 @@
                 <version>${spring-data-jpa.version}</version>
                 <exclusions>
                     <exclusion>
-                        <groupId>junit</groupId>
-                        <artifactId>junit-dep</artifactId>
-                    </exclusion>
-                    <exclusion>
                         <groupId>org.slf4j</groupId>
                         <artifactId>slf4j-api</artifactId>
                     </exclusion>
@@ -141,12 +137,14 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid</artifactId>
                 <version>${database.pool.version}</version>
+                <scope>runtime</scope>
             </dependency>
             <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${database.connector.version}</version>
+                <scope>runtime</scope>
             </dependency>
             <!-- data pool end -->
             <!-- JSON begin -->
@@ -192,13 +190,15 @@
                 <artifactId>cxf-rt-transports-http</artifactId>
                 <version>${cxf.version}</version>
             </dependency>
-            <!-- Jetty is needed if you're are not using the CXFServlet -->
-            <dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-rt-transports-http-jetty</artifactId>
-                <version>${cxf.version}</version>
-            </dependency>
             <!-- cxf end-->
+            <!-- security  start-->
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-spring</artifactId>
+                <version>${shiro.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <!-- security end-->
         </dependencies>
     </dependencyManagement>
     <repositories>
