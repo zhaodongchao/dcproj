@@ -20,8 +20,11 @@ public class UserServiceImpl implements IUserFacade {
         return "haha";
     }
 
+    /*
+      提供WebService服务
+     */
     @Override
     public String getUserByname(String username) {
-        return userService.findUserByName(username).getUsername();
+        return userService.findUserInfoForWS(username);
     }
 }
