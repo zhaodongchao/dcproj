@@ -10,6 +10,6 @@
   <title>Title</title>
 </head>
 <body>
-<h1>hello world !</h1>
+<h1>hello ${currentUser.username} !</h1> <a href="${pageContext.request.contextPath}/login_out">退出登录</a>
 </body>
 </html>

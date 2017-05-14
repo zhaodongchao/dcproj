@@ -1,6 +1,5 @@
 package org.dongchao.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -33,8 +32,9 @@ public class User implements Serializable {
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "roleId")})
     private Set<Role> role;
     @Transient
-    @JsonIgnore
     private List<String> roles;
+    @Transient
+    private Set<String> permissions;
 
     public User() {
     }
@@ -79,6 +79,14 @@ public class User implements Serializable {
         this.role = role;
     }
 
+    public Set<String> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(Set<String> permissions) {
+        this.permissions = permissions;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -98,10 +106,11 @@ public class User implements Serializable {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("User{");
-        sb.append("id=").append(userId);
-        sb.append(", name='").append(username).append('\'');
+        sb.append("userId=").append(userId);
+        sb.append(", username='").append(username).append('\'');
         sb.append(", password='").append(password).append('\'');
         sb.append(", roles=").append(roles);
+        sb.append(", permissions=").append(permissions);
         sb.append('}');
         return sb.toString();
     }

@@ -10,6 +10,7 @@
   <title>Title</title>
 </head>
 <body>
+403
 <script type="text/javascript" >
 /*  function f1(base) {
       return function (max) {
@@ -27,7 +28,7 @@ var f =function (id) {
             alert(id) ;
         }
     )(id)
-}
+};
 //f(123);
 var person = {
     name :"",
@@ -54,10 +55,10 @@ console.log(person.name);
 console.log(person.work());
 console.log(person.age);
 person.age = 30 ;
-console.log(person.age)
+console.log(person.age);
 var home  = person && person.address && person.address.home ;
 console.log(home) ;
-var oo = new Object();
+var oo = {};
 
 //
   function Persion() {

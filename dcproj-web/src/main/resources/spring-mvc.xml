@@ -27,6 +27,8 @@
         <property name="defaultEncoding" value="utf-8"></property>
         <property name="maxUploadSize" value="10485760"></property>
         <property name="uploadTempDir" value="/tmp"></property>
+        <!--resolveLazily属性启用是为了推迟文件解析，以便在后台代码中捕获文件大小异常-->
+        <property name="resolveLazily" value="true"/>
     </bean>
     <!-- SpringMVC在超出上传文件限制时，会抛出org.springframework.web.multipart.MaxUploadSizeExceededException
                           该异常是SpringMVC在检查上传的文件信息时抛出来的，而且此时还没有进入到Controller方法中-->

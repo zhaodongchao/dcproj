@@ -16,7 +16,7 @@
   <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="icon" href="static/image/icon/favicon.ico">
+  <link rel="icon" href="${pageContext.request.contextPath}/static/image/icon/home.ico">
 
   <title>Signin Template for Bootstrap</title>
 
@@ -25,15 +25,15 @@
 
 
   <!-- Custom styles for this template -->
-  <link href="static/css/signin.css" rel="stylesheet">
+  <link href="${pageContext.request.contextPath}/static/css/signin.css" rel="stylesheet">
 
 </head>
 
 <body>
-
+${errorMsg}
 <div class="container">
 
-  <form class="form-signin" action="" method="post">
+  <form class="form-signin" action="${pageContext.request.contextPath}/system/login" method="post">
     <h2 class="form-signin-heading">Please sign in</h2>
     <label for="username" class="sr-only">用户名</label>
     <input type="text" id="username" name="username" class="form-control" placeholder="请输入用户名" required autofocus>

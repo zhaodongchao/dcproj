@@ -27,7 +27,7 @@
     <!-- 日志级别 输出error debug 两个级别的日志-->
     <root>
         <level value="error"/>
-        <level value="debug"/>
+        <level value="INFO"/>
         <appender-ref ref="console"/>
         <appender-ref ref="file"/>
     </root>

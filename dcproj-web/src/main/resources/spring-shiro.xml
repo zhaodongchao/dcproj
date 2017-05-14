@@ -7,9 +7,13 @@
         <!-- securityManager 必须配置-->
         <property name="securityManager" ref="securityManager"/>
         <!-- 配置我们的登录请求地址 -->
-        <property name="loginUrl" value="/login.jsp"/>
-        <!-- 配置我们在登录页登录成功后的跳转地址，如果你访问的是非/login地址，则跳到您访问的地址-->
-        <property name="successUrl" value="/login/success"/>
+        <property name="loginUrl" value="/system/login"/>
+        <property name="unauthorizedUrl" value="/403.jsp"/>
+        <property name="filters">
+            <map>
+                <entry key="authc" value-ref="myFormAuthenticationFilter"/>
+            </map>
+        </property>
         <!-- 权限配置 -->
         <property name="filterChainDefinitions">
             <value>
@@ -27,8 +31,10 @@
         <!-- ref对应我们写的realm  MyShiro -->
         <property name="realm" ref="myRealm"/>
     </bean>
-    <bean id="myRealm" class="org.dongchao.web.security.MyRealm">
-    </bean>
-    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+    <bean id="myRealm" class="org.dongchao.web.security.MyRealm"/>
 
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+    <!--自定义登录验证过滤器-->
+    <bean id="myFormAuthenticationFilter" class="org.dongchao.web.security.MyFormAuthenticationFilter">
+    </bean>
 </beans>

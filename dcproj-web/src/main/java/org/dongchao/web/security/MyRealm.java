@@ -1,7 +1,9 @@
 package org.dongchao.web.security;
 
 import org.apache.shiro.authc.*;
+import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.dongchao.core.service.UserService;
@@ -19,11 +21,20 @@ public class MyRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        return null;
+        if (principals == null) {
+            throw new AuthorizationException("PrincipalCollection method argument cannot be null.");
+        }
+        User shiroUser = (User) principals.getPrimaryPrincipal();
+        User user = userService.findUserByName(shiroUser.getUsername());
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        info.addRoles(user.getRoles());
+        info.setStringPermissions(user.getPermissions());
+        return info;
     }
 
     /**
      * 认证回调函数,登录时调用.
+     *  在ModularRealmAuthenticator中调用
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
