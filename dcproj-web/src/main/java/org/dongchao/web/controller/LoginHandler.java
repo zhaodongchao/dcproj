@@ -25,7 +25,6 @@ public class LoginHandler {
      * <p>
      * 不管验证成功或者失败都会执行上一次的请求及表单提交的POST请求地址
      *
-     * @return
      */
     @RequestMapping(method = RequestMethod.GET)
     public String login() {
@@ -36,8 +35,6 @@ public class LoginHandler {
      * * 在FormAuthenticationFilter.executeLogin 方法中的登录异常时会调用MyFormAuthenticationFilter.onLoginFailure
      * 会将登录异常信息添加到request中
      *
-     * @param request
-     * @return
      */
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView success(HttpServletRequest request) {
