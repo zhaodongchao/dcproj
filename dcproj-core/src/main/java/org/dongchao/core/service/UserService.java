@@ -1,9 +1,11 @@
 package org.dongchao.core.service;
 
 import org.dongchao.core.dao.UserDao;
+import org.dongchao.model.common.ResultModel;
 import org.dongchao.model.entity.Permission;
 import org.dongchao.model.entity.Role;
 import org.dongchao.model.entity.User;
+import org.dongchao.utils.common.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,5 +46,16 @@ public class UserService {
         }
         user.setRoles(roles);
         user.setPermissions(permissions);
+    }
+
+    public String findUserInfoForWS(String username) {
+        ResultModel result;
+        User user = findUserByName(username);
+        if (null == user) {
+            result = new ResultModel(false, "没有找到名字为" + username + "的用户");
+            return JsonUtil.Object2JsonString(result);
+        }
+        result = new ResultModel(true, "成功找到用户：" + username, user.toString());
+        return JsonUtil.Object2JsonString(result);
     }
 }
