@@ -1,12 +1,9 @@
 package org.dongchao.web.security;
 
 import org.apache.shiro.authc.*;
-import org.apache.shiro.authc.credential.CredentialsMatcher;
-import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
-import org.apache.shiro.codec.Hex;
 import org.apache.shiro.crypto.hash.Hash;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -15,6 +12,7 @@ import org.apache.shiro.util.ByteSource;
 import org.apache.shiro.util.SimpleByteSource;
 import org.dongchao.core.service.UserService;
 import org.dongchao.model.entity.User;
+import org.dongchao.web.security.credentials.MyCredentialsMatcher;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
@@ -64,7 +62,7 @@ public class MyRealm extends AuthorizingRealm {
      */
     @PostConstruct
     public void initCredentialsMatcher() {
-        HashedCredentialsMatcher matcher = new HashedCredentialsMatcher(UserService.HASH_ALGORITHM);
+        MyCredentialsMatcher matcher = new MyCredentialsMatcher(UserService.HASH_ALGORITHM);
         matcher.setHashIterations(UserService.HASH_INTERATIONS);
         super.setCredentialsMatcher(matcher);
     }
