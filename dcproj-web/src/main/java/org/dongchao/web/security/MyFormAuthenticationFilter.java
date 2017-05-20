@@ -40,9 +40,9 @@ public class MyFormAuthenticationFilter extends AuthenticatingFilter {
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
         //检测请求是否为登录请求 特点 url = loginUrl and method = post
         if (isLoginRequest(request, response)) {//判断loginUrl
-            logger.info("正在访问url:" + getPathWithinApplication(request) + "  method:" + WebUtils.toHttp(request).getMethod());
+            logger.info("检测到登录请求loginUrl method:" + WebUtils.toHttp(request).getMethod());
             if (isLoginSubmission(request)) {//判断是否为post请求
-                logger.info("检测到登录请求...................");
+                logger.info("正在进行登录验证...................");
                 return executeLogin(request, response); //执行登录操作
             } else {
                 //allow them to see the login page ;
@@ -58,13 +58,13 @@ public class MyFormAuthenticationFilter extends AuthenticatingFilter {
 
     @Override
     protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request, ServletResponse response) throws Exception {
-        logger.info("---------------->登录成功");
+        logger.info("----------------登录验证成功--------------");
         return true;
     }
 
     @Override
     protected boolean onLoginFailure(AuthenticationToken token, AuthenticationException e, ServletRequest request, ServletResponse response) {
-        logger.info("------------>登录失败 " + e.getMessage());
+        logger.info("------------>登录验证失败： " + e.getMessage());
         setFailureAttribute(request, e);//将登录异常信息存放在request中
         //login failed, let request continue back to the login page:
         return true; //还回true让过滤连继续走下去，跟成功登录的流程一样，所以会访问上一个请求，也就是表单提交请求
