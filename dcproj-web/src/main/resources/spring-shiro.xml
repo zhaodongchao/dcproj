@@ -29,11 +29,45 @@
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <!-- ref对应我们写的realm  MyShiro -->
         <property name="realm" ref="myRealm"/>
+        <property name="sessionManager" ref="sessionManager"/>
+        <property name="rememberMeManager" ref="rememberMeManager"/>
+        <!--设置 SecurityManager 的 cacheManager，会自动设置实现了CacheManagerAware 接口的相应对象，如 SessionDAO 的 cacheManager-->
+        <property name="cacheManager" ref="ehCacheManager"/>
     </bean>
     <bean id="myRealm" class="org.dongchao.web.security.MyRealm"/>
 
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
     <!--自定义登录验证过滤器-->
     <bean id="myFormAuthenticationFilter" class="org.dongchao.web.security.MyFormAuthenticationFilter">
+    </bean>
+    <!-- 会话 Cookie 模板 -->
+    <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg value="s_id"/>
+        <property name="httpOnly" value="true"/>
+        <property name="maxAge" value="-1"/>
+    </bean>
+    <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg value="rememberMe"/>
+        <property name="httpOnly" value="true"/>
+        <property name="maxAge" value="2592000"/><!-- 30 天 -->
+    </bean>
+    <!-- Session管理器-->
+    <!--Shiro 提供了三个默认实现：
+            DefaultSessionManager: DefaultSecurityManager 使用的默认实现，用于 JavaSE 环境；
+            ServletContainerSessionManager : DefaultWebSecurityManager使用的默认实现，用于Web环境，其直接使用 Servlet 容器的会话；
+            DefaultWebSessionManager ： 用于Web环境的实现,可以替代ServletContainerSessionManager，自己维护着会话，直接废弃了 Servlet 容器的会话管理。
+    -->
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+        <property name="sessionIdCookie" ref="sessionIdCookie"/>
+        <property name="globalSessionTimeout" value="180000"/>
+    </bean>
+    <!--session缓存 -->
+    <bean id="ehCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManagerConfigFile" value="classpath:ehcache/shiro-ehcache.xml"/>
+    </bean>
+    <!-- rememberMe 管理器 -->
+    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+        <property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}"/>
+        <property name="cookie" ref="rememberMeCookie"/>
     </bean>
 </beans>
