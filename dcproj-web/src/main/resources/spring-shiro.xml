@@ -7,7 +7,7 @@
         <!-- securityManager 必须配置-->
         <property name="securityManager" ref="securityManager"/>
         <!-- 配置我们的登录请求地址 -->
-        <property name="loginUrl" value="/system/login"/>
+        <property name="loginUrl" value="/login"/>
         <property name="unauthorizedUrl" value="/403.jsp"/>
         <property name="filters">
             <map>
@@ -17,10 +17,9 @@
         <!-- 权限配置 -->
         <property name="filterChainDefinitions">
             <value>
-                <!-- anon表示此地址不需要任何权限即可访问,authc表示只有通过表单登录的用户才能访问/authc/下的资源 -->
+                <!-- anon表示此地址不需要任何权限即可访问,authc表示只有通过表单登录的用户才能访问/下的资源 -->
                 /static/**=anon
-
-                <!--user配置记住我或认证通过可以访问的地址-->
+                /=anon
                 /login_out=logout
                 /**=authc
             </value>

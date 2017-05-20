@@ -4,7 +4,6 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.AuthenticatingFilter;
-import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
  * Created by zhaodongchao on 2017/5/14.
  */
 public class MyFormAuthenticationFilter extends AuthenticatingFilter {
-    private static final Logger logger = LoggerFactory.getLogger(FormAuthenticationFilter.class);
+    private static final Logger logger = LoggerFactory.getLogger(MyFormAuthenticationFilter.class);
 
     public static final String DEFAULT_ERROR_KEY_ATTRIBUTE_NAME = "shiroLoginFailure";
 

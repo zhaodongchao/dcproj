@@ -1,9 +1,7 @@
 package org.dongchao.web.controller;
 
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
-import org.dongchao.model.entity.User;
 import org.dongchao.web.security.MyFormAuthenticationFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,28 +13,27 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Created by zhaodongchao on 2017/5/3.
  */
-@RequestMapping("system/login")
+@RequestMapping("/")
 @Controller
 public class LoginHandler {
     /**
      * 正真的登录验证是在FormAuthenticationFilter中进行的
      * 由于shiro在登录时会保存上一次的请求路径
      * GET请求用于请求登录页面，POST请求进行身份验证
-     * <p>
-     * 不管验证成功或者失败都会执行上一次的请求及表单提交的POST请求地址
      *
      */
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = {"login"},method = RequestMethod.GET)
     public String login() {
         return "login";
     }
 
     /**
      * * 在FormAuthenticationFilter.executeLogin 方法中的登录异常时会调用MyFormAuthenticationFilter.onLoginFailure
-     * 会将登录异常信息添加到request中
-     *
+     * 会将登录异常信息添加到request中，不会抛出登录异常信息（关键）
+     * 因此会导致就算登录失败，也不会提示失败，且会以登录成功的方式处理。也就是访问 /login post ，会执行到下面方法
+     * 也就是说，只要是请求为loginUrl method=POST时， 不管MyFormAuthenticationFilter验证成功或者失败都会执行上一次的请求及表单提交的POST请求地址
      */
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = {"login"},method = RequestMethod.POST)
     public ModelAndView success(HttpServletRequest request) {
         ModelAndView mv;
         if (null != request.getAttribute(MyFormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME)) {
@@ -54,11 +51,17 @@ public class LoginHandler {
             }
             return mv;
         }
-        User currentUser = (User) SecurityUtils.getSubject().getPrincipal();
+//        User currentUser = (User) SecurityUtils.getSubject().getPrincipal();
 
         mv = new ModelAndView("home");
-        mv.addObject("currentUser", currentUser);
-
         return mv;
+    }
+
+    /**
+     *  默认打开系统主页，所有人都能访问，但是主页相关的类容和操作，会根据游客和用户权限经行控制显示
+     */
+    @RequestMapping(method = RequestMethod.GET)
+    public String defaultPage(){
+        return "home" ;
     }
 }

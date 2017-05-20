@@ -32,8 +32,11 @@
 <body>
 ${errorMsg}
 <div class="container">
-
-  <form class="form-signin" action="${pageContext.request.contextPath}/system/login" method="post">
+ <!--此处action为""时，由于是post请求，会被authc过滤器拦截，并且Action的url会认作上一个请求，也就是loginUrl
+    在MyFormAuthenticationFilter中登录成功时，会跳转到上一个请求，也就是 /login post 请求
+    登录失败时，会跳转到loginUrl ,也就是/login get  请求
+ -->
+  <form class="form-signin" action="" method="post" >
     <h2 class="form-signin-heading">Please sign in</h2>
     <label for="username" class="sr-only">用户名</label>
     <input type="text" id="username" name="username" class="form-control" placeholder="请输入用户名" required autofocus>
