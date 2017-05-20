@@ -35,7 +35,14 @@ public class MyFormAuthenticationFilter extends AuthenticatingFilter {
         return createToken(username, password, request, response);
     }
 
-
+    /**
+     * 表示当访问拒绝时是否已经处理了；如果返回 true 表示需要继续处理；
+     * 如果返回 false 表示该拦截器实例已经处理了，将直接返回即可
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
         //检测请求是否为登录请求 特点 url = loginUrl and method = post
