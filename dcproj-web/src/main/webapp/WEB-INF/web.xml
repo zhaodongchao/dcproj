@@ -58,4 +58,9 @@
         <servlet-name>cxf</servlet-name>
         <url-pattern>/ws/*</url-pattern>
     </servlet-mapping>
+
+    <error-page>
+        <exception-type>org.apache.shiro.session.InvalidSessionException</exception-type>
+        <location>/invalidSession.jsp</location>
+    </error-page>
 </web-app>
