@@ -21,6 +21,8 @@ public class User implements Serializable {
     private String username;
 
     private String password;
+
+    private String salt;
     /*
       存放用户拥有的角色的对象的集合
       多对多关联fetch不能设置为懒加载
@@ -87,6 +89,14 @@ public class User implements Serializable {
         this.permissions = permissions;
     }
 
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -109,6 +119,7 @@ public class User implements Serializable {
         sb.append("userId=").append(userId);
         sb.append(", username='").append(username).append('\'');
         sb.append(", password='").append(password).append('\'');
+        sb.append(", salt='").append(salt).append('\'');
         sb.append(", roles=").append(roles);
         sb.append(", permissions=").append(permissions);
         sb.append('}');

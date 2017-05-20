@@ -19,6 +19,8 @@ import java.util.Set;
  */
 @Service
 public class UserService {
+    public static final String HASH_ALGORITHM = "SHA-1";
+    public static final int HASH_INTERATIONS = 1024;
     @Autowired
     private UserDao userDao ;
     public List<User> findAllUser(){
