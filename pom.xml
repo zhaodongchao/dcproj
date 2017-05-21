@@ -32,6 +32,7 @@
         <org.hibernate.version>4.1.7.Final</org.hibernate.version>
         <hibernate-validator.version>4.3.0.Final</hibernate-validator.version>
         <shiro.version>1.3.2</shiro.version>
+        <jredis.version>2.7.3</jredis.version>
         <jackson.version>2.8.0</jackson.version>
         <commons-lang3.version>3.1</commons-lang3.version>
         <commons-codec.version>1.10</commons-codec.version>
@@ -244,6 +245,11 @@
                 <groupId>org.apache.shiro</groupId>
                 <artifactId>shiro-ehcache</artifactId>
                 <version>${shiro.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+                <version>${jredis.version}</version>
             </dependency>
             <!-- security end-->
         </dependencies>
