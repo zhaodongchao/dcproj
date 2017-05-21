@@ -50,7 +50,7 @@ public class LoginHandler {
             }
             return mv;
         }
-        mv = new ModelAndView("home");
+        mv = new ModelAndView("admin/homepage");
         return mv;
     }
 
@@ -59,6 +59,6 @@ public class LoginHandler {
      */
     @RequestMapping(method = RequestMethod.GET)
     public String defaultPage() {
-        return "home";
+        return "admin/homepage";
     }
 }
