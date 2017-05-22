@@ -73,7 +73,8 @@
         <property name="sessionIdCookie" ref="sessionIdCookie"/>
         <property name="deleteInvalidSessions" value="true"/>
         <property name="sessionIdUrlRewritingEnabled" value="false"/>
-        <property name="sessionValidationInterval" value="180000"/>
+        <property name="sessionValidationInterval" value="18000"/>
+        <property name="globalSessionTimeout" value="180000"/>
         <property name="sessionIdCookieEnabled" value="true"/>
         <property name="sessionDAO" ref="sessionDAO"/>
     </bean>
@@ -98,11 +99,13 @@
     <!-- 会话 ID 生成器 -->
     <bean id="sessionIdGenerator"
           class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
+    <bean id="redisManager" class="org.dongchao.web.security.redis.JedisManager">
+        <property name="jedisPool" ref="jedisPool"/>
+    </bean>
     <!-- 会话 DAO -->
-    <bean id="sessionDAO"
-          class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
-        <property name="activeSessionsCacheName" value="shiro-activeSessionCache"/>
+    <bean id="sessionDAO" class="org.dongchao.web.security.MySessionDao">
         <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
+        <property name="redisManager" ref="redisManager"/>
     </bean>
     <!-- 相当于调用 SecurityUtils.setSecurityManager(securityManager) -->
     <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">

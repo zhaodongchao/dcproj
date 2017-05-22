@@ -8,6 +8,7 @@
 
     <!-- 隐式地向 Spring 容器注册 -->
     <context:annotation-config/>
+    <import resource="classpath:redis/spring-redis.xml"/>
     <import resource="classpath:spring-cxf-rest.xml"/>
     <import resource="classpath:org/dongchao/model/config/spring-model.xml"/>
     <import resource="classpath:org/dongchao/core/config/spring-core-transaction.xml"/>
