@@ -73,7 +73,7 @@
         <property name="sessionIdCookie" ref="sessionIdCookie"/>
         <property name="deleteInvalidSessions" value="true"/>
         <property name="sessionIdUrlRewritingEnabled" value="false"/>
-        <property name="sessionValidationInterval" value="18000"/>
+        <property name="sessionValidationSchedulerEnabled" value="false"/>
         <property name="globalSessionTimeout" value="180000"/>
         <property name="sessionIdCookieEnabled" value="true"/>
         <property name="sessionDAO" ref="sessionDAO"/>
