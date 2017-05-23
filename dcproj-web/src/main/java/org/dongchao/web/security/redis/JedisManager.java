@@ -97,12 +97,12 @@ public class JedisManager {
         return result;
     }
 
-    public Set<byte[]> getAll() {
+    public Set<byte[]> getByPattern(String pattern) {
         Jedis jedis = null ;
         Set<byte[]> alls = new HashSet<>();
         try {
             jedis = getResource();
-            Set<byte[]> keys =  jedis.keys("*".getBytes());
+            Set<byte[]> keys =  jedis.keys((pattern+"*").getBytes());
             for (byte[] key : keys) {
                 alls.add(getResource().get(key));
             }
@@ -129,5 +129,11 @@ public class JedisManager {
 
     public void setJedisPool(JedisPool jedisPool) {
         this.jedisPool = jedisPool;
+    }
+
+    public static void main(String[] args) {
+        Jedis jedis = new Jedis("192.168.168.15");
+        Set<byte[]> all = jedis.keys("*".getBytes());
+        System.out.println(all);
     }
 }
