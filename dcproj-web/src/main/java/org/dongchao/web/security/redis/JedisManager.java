@@ -46,7 +46,7 @@ public class JedisManager {
             if (seconds<=0){
                 return;
             }
-            jedis.setex(key, seconds/1000, value);
+            jedis.setex(key, seconds, value);
         } catch (Exception e) {
             logger.warn("setex {} = {}", key, value, e);
         } finally {
@@ -131,9 +131,4 @@ public class JedisManager {
         this.jedisPool = jedisPool;
     }
 
-    public static void main(String[] args) {
-        Jedis jedis = new Jedis("192.168.168.15");
-        Set<byte[]> all = jedis.keys("*".getBytes());
-        System.out.println(all);
-    }
 }
