@@ -16,19 +16,22 @@ import java.util.Set;
  * Created by zhaodongchao on 2017/5/21.
  */
 public class MySessionDao extends AbstractSessionDAO {
+    private static String KEY_PREFIX = "session_" ;
+    private String keyPrefix = KEY_PREFIX ;
+
     private JedisManager redisManager;
 
     @Override
     protected Serializable doCreate(Session session) {
         Serializable sessionId = getSessionIdGenerator().generateId(session);
         assignSessionId(session,sessionId);
-        redisManager.save(sessionId.toString().getBytes(), (int) session.getTimeout(), sessionToByte(session));
+        redisManager.save(setPrefix(sessionId.toString()).getBytes(), (int) session.getTimeout(), sessionToByte(session));
         return sessionId;
     }
 
     @Override
     protected Session doReadSession(Serializable sessionId) {
-        byte[] session = redisManager.get(sessionId.toString().getBytes());
+        byte[] session = redisManager.get(setPrefix(sessionId.toString()).getBytes());
         if (null == session) {
             return null;
         }
@@ -41,17 +44,17 @@ public class MySessionDao extends AbstractSessionDAO {
             return;
         }
         Serializable sessionId = session.getId();
-        redisManager.update(sessionId.toString().getBytes(), sessionToByte(session));
+        redisManager.update(setPrefix(sessionId.toString()).getBytes(), sessionToByte(session));
     }
 
     @Override
     public void delete(Session session) {
-       redisManager.delete(session.getId().toString());
+       redisManager.delete(setPrefix(session.getId().toString()));
     }
 
     @Override
     public Collection<Session> getActiveSessions() {
-        Set<byte[]> bytesSessions = redisManager.getAll();
+        Set<byte[]> bytesSessions = redisManager.getByPattern(this.keyPrefix);
         Set<Session> sessions = new HashSet<>();
         for (byte[] byteSession : bytesSessions) {
             sessions.add(byteToSession(byteSession));
@@ -95,5 +98,19 @@ public class MySessionDao extends AbstractSessionDAO {
 
     public void setRedisManager(JedisManager redisManager) {
         this.redisManager = redisManager;
+    }
+
+    /**
+     * 为了与其他业务不冲突，给存入数据库的key加上一个前缀来作为标识
+     * @param key
+     * @return
+     */
+    private String setPrefix(String key) {
+        key= KEY_PREFIX+"_"+key;
+        return key;
+    }
+
+    public void setKeyPrefix(String keyPrefix) {
+        this.keyPrefix = keyPrefix;
     }
 }
