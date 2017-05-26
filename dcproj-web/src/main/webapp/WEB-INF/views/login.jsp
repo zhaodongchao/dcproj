@@ -18,38 +18,45 @@
   <meta name="author" content="">
   <link rel="icon" href="${pageContext.request.contextPath}/static/image/icon/home.ico">
 
-  <title>Signin Template for Bootstrap</title>
-
-  <!-- Bootstrap core CSS -->
-  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-
-
-  <!-- Custom styles for this template -->
-  <link href="${pageContext.request.contextPath}/static/css/signin.css" rel="stylesheet">
-
+  <title>用户登录</title>
+  <!-- Bootstrap Core CSS -->
+  <link href="${pageContext.request.contextPath}/static/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
 ${errorMsg}
-<div class="container">
  <!--此处action为""时，由于是post请求，会被authc过滤器拦截，并且Action的url会认作上一个请求，也就是loginUrl
     在MyFormAuthenticationFilter中登录成功时，会跳转到上一个请求，也就是 /login post 请求
     登录失败时，会跳转到loginUrl ,也就是/login get  请求
  -->
-  <form class="form-signin" action="" method="post" >
-    <h2 class="form-signin-heading">Please sign in</h2>
-    <label for="username" class="sr-only">用户名</label>
-    <input type="text" id="username" name="username" class="form-control" placeholder="请输入用户名" required autofocus>
-    <label for="password" class="sr-only">Password</label>
-    <input type="password" id="password" name="password" class="form-control" placeholder="请输入登录密码" required>
-    <div class="checkbox">
-      <label>
-        <input type="checkbox" value="remember-me" name="rememberMe"> Remember me
-      </label>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+      <div class="login-panel panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Please Sign In</h3>
+        </div>
+        <div class="panel-body">
+          <form role="form" action="" method="post">
+            <fieldset>
+              <div class="form-group">
+                <input class="form-control" placeholder="请输入用户名" name="username" type="text" required autofocus>
+              </div>
+              <div class="form-group">
+                <input class="form-control" placeholder="Password" name="password" type="password" required>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input name="rememberMe" type="checkbox" value="Remember Me">Remember Me
+                </label>
+              </div>
+              <button class="btn btn-lg btn-success btn-block" type="submit">Sign in</button>
+            </fieldset>
+          </form>
+        </div>
+      </div>
     </div>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-  </form>
-
+  </div>
 </div>
 </body>
 </html>
