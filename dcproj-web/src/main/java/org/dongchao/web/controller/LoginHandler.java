@@ -21,7 +21,7 @@ public class LoginHandler {
      * 由于shiro在登录时会保存上一次的请求路径
      * GET请求用于请求登录页面，POST请求进行身份验证
      */
-    @RequestMapping(value = {"login"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"login","/"}, method = RequestMethod.GET)
     public String login() {
         return "login";
     }
@@ -54,11 +54,4 @@ public class LoginHandler {
         return mv;
     }
 
-    /**
-     * 默认打开系统主页，所有人都能访问，但是主页相关的类容和操作，会根据游客和用户权限经行控制显示
-     */
-    @RequestMapping(method = RequestMethod.GET)
-    public String defaultPage() {
-        return "admin/homepage";
-    }
 }

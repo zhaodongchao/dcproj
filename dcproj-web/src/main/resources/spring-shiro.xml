@@ -20,7 +20,6 @@
             <value>
                 <!-- anon表示此地址不需要任何权限即可访问,authc表示只有通过表单登录的用户才能访问/下的资源 -->
                 /static/**=anon
-                /=anon
                 /login=authc
                 /login_out=logout
                 /**=user
@@ -77,6 +76,11 @@
         <property name="globalSessionTimeout" value="180000"/>
         <property name="sessionIdCookieEnabled" value="true"/>
         <property name="sessionDAO" ref="sessionDAO"/>
+        <property name="sessionListeners">
+            <list>
+                <bean class="org.dongchao.web.security.MySessionListener"/>
+            </list>
+        </property>
     </bean>
     <!--session缓存 -->
     <bean id="ehCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
