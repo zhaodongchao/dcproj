@@ -17,7 +17,10 @@ import javax.servlet.ServletRequest;
  */
 public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
     private static final Logger logger = LoggerFactory.getLogger(MyFormAuthenticationFilter.class);
-
+    /**
+     * 默认的成功地址
+     */
+    private String defaultSuccessUrl;
     @Override
     protected void setFailureAttribute(ServletRequest request, AuthenticationException ae) {
         request.setAttribute(getFailureKeyAttribute(), ae);
@@ -26,6 +29,14 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
     @Override
     public String getSuccessUrl() {
 
-        return super.getSuccessUrl();
+        return this.getDefaultSuccessUrl();
+    }
+
+    public String getDefaultSuccessUrl() {
+        return defaultSuccessUrl;
+    }
+
+    public void setDefaultSuccessUrl(String defaultSuccessUrl) {
+        this.defaultSuccessUrl = defaultSuccessUrl;
     }
 }
