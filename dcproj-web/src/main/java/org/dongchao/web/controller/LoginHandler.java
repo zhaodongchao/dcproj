@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Created by zhaodongchao on 2017/5/3.
  */
-@RequestMapping("/")
 @Controller
 public class LoginHandler {
     /**
@@ -21,7 +20,7 @@ public class LoginHandler {
      * 由于shiro在登录时会保存上一次的请求路径
      * GET请求用于请求登录页面，POST请求进行身份验证
      */
-    @RequestMapping(value = {"login","/"}, method = RequestMethod.GET)
+    @RequestMapping(value = "login",method = RequestMethod.GET)
     public String login() {
         return "login";
     }
@@ -32,7 +31,7 @@ public class LoginHandler {
      * 因此会导致就算登录失败，也不会提示失败，且会以登录成功的方式处理。也就是访问 /login post ，会执行到下面方法
      * 也就是说，只要是请求为loginUrl method=POST时， 不管MyFormAuthenticationFilter验证成功或者失败都会执行上一次的请求及表单提交的POST请求地址
      */
-    @RequestMapping(value = {"login"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/","login/success"})
     public ModelAndView success(HttpServletRequest request) {
         ModelAndView mv;
         if (null != request.getAttribute(MyFormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME)) {

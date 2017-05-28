@@ -7,6 +7,9 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletRequest;
 
+import static org.apache.shiro.web.util.WebUtils.getRequestUri;
+import static org.apache.shiro.web.util.WebUtils.toHttp;
+
 /**
  * 1、onLoginFailure 时 把异常添加到request attribute中 而不是异常类名
  * 2、登录成功时：成功页面重定向：
@@ -30,6 +33,15 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
     public String getSuccessUrl() {
 
         return this.getDefaultSuccessUrl();
+    }
+
+    @Override
+    protected void saveRequest(ServletRequest request) {
+        String uri = getRequestUri(toHttp(request));
+        if (uri.equals("/") || uri.equals(getLoginUrl())){
+            return;
+        }
+        super.saveRequest(request);
     }
 
     public String getDefaultSuccessUrl() {

@@ -46,7 +46,7 @@
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
     <!--自定义登录验证过滤器-->
     <bean id="myFormAuthenticationFilter" class="org.dongchao.web.security.filter.MyFormAuthenticationFilter">
-        <property name="defaultSuccessUrl" value="/"/>
+        <property name="defaultSuccessUrl" value="/login/success"/>
     </bean>
     <!-- 会话 Cookie 模板 -->
     <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
