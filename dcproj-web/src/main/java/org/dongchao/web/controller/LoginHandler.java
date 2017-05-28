@@ -2,7 +2,7 @@ package org.dongchao.web.controller;
 
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
-import org.dongchao.web.security.MyFormAuthenticationFilter;
+import org.dongchao.web.security.filter.MyFormAuthenticationFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

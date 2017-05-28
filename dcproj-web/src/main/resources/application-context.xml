@@ -2,15 +2,80 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd "
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd"
        default-lazy-init="true">
     <description>系统spring与spring MVC的入口</description>
 
+    <context:property-placeholder file-encoding="utf-8" location="classpath:resources.properties"/>
     <!-- 隐式地向 Spring 容器注册 -->
     <context:annotation-config/>
+
+    <context:component-scan base-package="org.dongchao"/>
+    <!--配置mysql数据源-->
+    <bean id="datasource_mysql" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" >
+        <!-- 基本属性 url、user、password -->
+        <property name="url" value="${mysql.url}" />
+        <property name="username" value="${mysql.username}" />
+        <property name="password" value="${mysql.password}" />
+        <property name="loginTimeout" value="${mysql.timeout}"/>
+        <!-- 配置初始化大小、最小、最大 -->
+        <property name="initialSize" value="10" />
+        <property name="minIdle" value="10" />
+        <property name="maxActive" value="20" />
+
+        <!-- 配置获取连接等待超时的时间 -->
+        <property name="maxWait" value="60000" />
+
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="300000" />
+
+        <property name="validationQuery" value="SELECT 1 from dual " />
+        <property name="testWhileIdle" value="true" />
+        <property name="testOnBorrow" value="false" />
+        <property name="testOnReturn" value="false" />
+
+        <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+        <property name="poolPreparedStatements" value="true" />
+        <property name="maxPoolPreparedStatementPerConnectionSize"
+                  value="20" />
+
+        <!-- 配置监控统计拦截的filters -->
+        <property name="filters" value="stat" />
+    </bean>
+    <!-- jpa 的配置-->
+    <bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+    <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <property name="database" value="MYSQL"></property>
+    </bean>
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="datasource_mysql"/>
+        <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
+        <property name="packagesToScan" value="org.dongchao.model"/>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">false</prop>
+                <prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+            </props>
+        </property>
+    </bean>
+    <!-- Spring Data Jpa配置 -->
+    <jpa:repositories base-package="org.dongchao.core"  transaction-manager-ref="transactionManager" entity-manager-factory-ref="entityManagerFactory"/>
+
+    <!-- Jpa 事务配置 -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+
+    <!-- 使用annotation定义事务 -->
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+
     <import resource="classpath:redis/spring-redis.xml"/>
     <import resource="classpath:spring-cxf-rest.xml"/>
-    <import resource="classpath:org/dongchao/model/config/spring-model.xml"/>
-    <import resource="classpath:org/dongchao/core/config/spring-core-transaction.xml"/>
 
 </beans>
