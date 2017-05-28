@@ -30,7 +30,6 @@ dcproj-client/target/
 dcproj-facade/target/
 dcproj-model/target/
 dcproj-utils/target/
-dcproj-core/target/
 dcproj-web/target/
 
 logs/
