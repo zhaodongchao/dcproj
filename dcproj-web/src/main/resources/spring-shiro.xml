@@ -40,16 +40,12 @@
         <property name="cacheManager" ref="ehCacheManager"/>
     </bean>
     <bean id="myRealm" class="org.dongchao.web.security.MyRealm">
-        <property name="cachingEnabled" value="true"/>
-        <property name="authenticationCachingEnabled" value="true"/>
-        <property name="authenticationCacheName" value="authenticationCache"/>
-        <property name="authorizationCachingEnabled" value="true"/>
-        <property name="authorizationCacheName" value="authorizationCache"/>
+        <property name="cachingEnabled" value="false"/>
     </bean>
 
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
     <!--自定义登录验证过滤器-->
-    <bean id="myFormAuthenticationFilter" class="org.dongchao.web.security.MyFormAuthenticationFilter">
+    <bean id="myFormAuthenticationFilter" class="org.dongchao.web.security.filter.MyFormAuthenticationFilter">
     </bean>
     <!-- 会话 Cookie 模板 -->
     <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
