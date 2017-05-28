@@ -10,7 +10,6 @@
     <modules>
         <module>dcproj-model</module>
         <module>dcproj-utils</module>
-        <module>dcproj-core</module>
         <module>dcproj-client</module>
         <module>dcproj-facade</module>
         <module>dcproj-web</module>

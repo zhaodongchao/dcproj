@@ -13,7 +13,12 @@
     <dependencies>
         <dependency>
             <groupId>org.dongchao</groupId>
-            <artifactId>dcproj-core</artifactId>
+            <artifactId>dcproj-model</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.dongchao</groupId>
+            <artifactId>dcproj-utils</artifactId>
             <version>${project.version}</version>
         </dependency>
         <!-- servlet-api -->

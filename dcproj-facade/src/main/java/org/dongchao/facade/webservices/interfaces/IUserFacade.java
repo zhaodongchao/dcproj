@@ -9,7 +9,5 @@ import javax.jws.WebService;
 @WebService
 public interface IUserFacade {
 
-    String hello() ;
-
     String getUserByname(@WebParam(name = "username") String username);
 }
