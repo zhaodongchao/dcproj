@@ -1,10 +1,6 @@
 package org.dongchao.core.service;
 
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.crypto.RandomNumberGenerator;
-import org.apache.shiro.crypto.SecureRandomNumberGenerator;
-import org.apache.shiro.crypto.hash.SimpleHash;
-import org.apache.shiro.util.ByteSource;
+
 import org.dongchao.core.dao.UserDao;
 import org.dongchao.model.common.ResultModel;
 import org.dongchao.model.entity.Permission;
@@ -70,7 +66,7 @@ public class UserService {
      * 获取当前session中的登录用户的信息
      */
     public User getCurrentUser(){
-        User currentUser = (User) SecurityUtils.getSubject().getPrincipal();
+        User currentUser = null ;
         return currentUser ;
     }
 
@@ -78,12 +74,7 @@ public class UserService {
      * 将用户的密码加密存入数据库
      */
     public void encryptPassword(User user) {
-        RandomNumberGenerator randomNumberGenerator = new SecureRandomNumberGenerator();
-        user.setSalt(randomNumberGenerator.nextBytes().toHex());
-        String newPassword = new SimpleHash(HASH_ALGORITHM,
-                                            user.getPassword(),
-                                            ByteSource.Util.bytes(user.getSalt()),
-                                            HASH_INTERATIONS).toHex();
-        user.setPassword(newPassword);
+
+        user.setPassword("");
     }
 }

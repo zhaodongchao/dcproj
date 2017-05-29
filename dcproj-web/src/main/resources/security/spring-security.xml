@@ -1,6 +1,69 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<b:beans xmlns="http://www.springframework.org/schema/security"
+         xmlns:b="http://www.springframework.org/schema/beans"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+    <debug/>
+    <!-- 静态资源，不用权限 -->
+    <http pattern="/static/**" security="none"/>
+    <!--登录页面-->
+    <http pattern="/login/index" security="none"/>
+    <http pattern="/" security="none"/>
 
-</beans>
+    <http auto-config="false" entry-point-ref="unAuthenticationEntryPoint">
+        <!-- 访问除了静态资源所有的资源都要先经过系统认证-->
+        <intercept-url pattern="/**" access="authenticated"/>
+
+        <custom-filter ref="loginFilter" position="FORM_LOGIN_FILTER"/>
+        <logout invalidate-session="true" logout-url="/logout" logout-success-url="/login/index"/>
+        <csrf disabled="true"/>
+        <!-- Uncomment to limit the number of sessions a user can have -->
+        <session-management invalid-session-url="/static/error/timeout.jsp">
+            <concurrency-control max-sessions="1" error-if-maximum-exceeded="true"/>
+        </session-management>
+    </http>
+    <!--自定义登录filter-->
+    <b:bean id="loginFilter" class="org.dongchao.security.web.authentication.LoginFilter">
+        <b:property name="filterProcessesUrl" value="/ss_login"/>
+        <b:property name="authenticationManager" ref="authenticationManager"/>
+        <b:property name="authenticationSuccessHandler" ref="authenticationSuccessHandler"/>
+        <b:property name="authenticationFailureHandler" ref="authenticationFailureHandler"/>
+    </b:bean>
+    <!--自定义FORM_LOGIN_FILTER后必须指定entry-point-ref-->
+    <b:bean id="unAuthenticationEntryPoint" class="org.dongchao.security.web.authentication.UnAuthenticationEntryPoint">
+        <b:constructor-arg name="loginFormUrl" value="/login/index"/>
+    </b:bean>
+    <b:bean id="authenticationSuccessHandler" class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+        <!--设置alwaysUseDefaultTargetUrl=true时就不会缓存请求-->
+        <b:property name="alwaysUseDefaultTargetUrl" value="true"/>
+        <b:property name="defaultTargetUrl" value="/login/success"/>
+    </b:bean>
+    <b:bean id="authenticationFailureHandler" class="org.springframework.security.web.authentication.ExceptionMappingAuthenticationFailureHandler">
+        <b:property name="defaultFailureUrl" value="/login/index"/>
+        <!--当配置exceptionMappings时，认证失败后会根据配置跳转到不同的页面，
+            当exceptionMappings中找不到异常对应的配置时，才会跳转到defaultFailureUrl-->
+    <!--    <b:property name="exceptionMappings">
+            <b:map>
+                <b:entry key="" value=""/>
+            </b:map>
+        </b:property>-->
+    </b:bean>
+    <!--手动配置daoAuthenticationProvider的相关属性，一般不用重写-->
+    <b:bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+        <b:property name="hideUserNotFoundExceptions" value="false"/>
+        <b:property name="userDetailsService" ref="userDetailsService"/>
+        <!--<b:property name="passwordEncoder" ref="md5Encoder"/>-->
+        <!--<b:property name="saltSource" ref="saltSource"/>-->
+    </b:bean>
+    <b:bean id="userDetailsService" class="org.dongchao.security.core.userdetails.jdbc.MyJdbcDaoImpl">
+        <b:property name="dataSource" ref="dataSource"/>
+    </b:bean>
+    <b:bean id="md5Encoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder"/>
+    <b:bean id="saltSource" class="org.springframework.security.authentication.dao.SystemWideSaltSource">
+        <b:property name="systemWideSalt" value="dong"/>
+    </b:bean>
+
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider ref="daoAuthenticationProvider"/>
+    </authentication-manager>
+</b:beans>

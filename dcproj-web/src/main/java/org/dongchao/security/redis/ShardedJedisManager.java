@@ -1,4 +1,4 @@
-package org.dongchao.web.security.redis;
+package org.dongchao.security.redis;
 
 import redis.clients.jedis.ShardedJedis;
 import redis.clients.jedis.ShardedJedisPool;

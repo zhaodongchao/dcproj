@@ -15,6 +15,9 @@
          定义了此标签后必须定义<mvc:annotation-driven/>
      -->
     <mvc:default-servlet-handler/>
+
+   <mvc:view-controller path="/" view-name="redirect:/login/index"/>
+
     <mvc:annotation-driven />
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
