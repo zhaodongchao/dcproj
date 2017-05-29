@@ -29,8 +29,8 @@
         <org.springframework.version>4.2.5.RELEASE</org.springframework.version>
         <org.spring.security.version>4.0.4.RELEASE</org.spring.security.version>
         <spring-data-jpa.version>1.10.1.RELEASE</spring-data-jpa.version>
-        <org.hibernate.version>4.1.7.Final</org.hibernate.version>
-        <hibernate-validator.version>4.3.0.Final</hibernate-validator.version>
+        <org.hibernate.version>4.3.11.Final</org.hibernate.version>
+        <hibernate-validator.version>5.2.2.Final</hibernate-validator.version>
         <jredis.version>2.7.3</jredis.version>
         <jackson.version>2.8.0</jackson.version>
         <commons-lang3.version>3.1</commons-lang3.version>
