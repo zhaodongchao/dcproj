@@ -57,8 +57,7 @@
     </bean>
 
     <!-- jpa Entity Factory 配置 -->
-    <bean id="entityManagerFactory"
-          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSourceProxy"/>
         <property name="packagesToScan" value="org.dongchao.model"/>
 
@@ -88,7 +87,13 @@
                 <!-- 只扫描class文件，不扫描hbm，默认两个都搜索 -->
                 <entry key="hibernate.archive.autodetection" value="class"/>
                 <!-- 不检查@NamedQuery -->
-                <!--<entry key="hibernate.query.startup_check" value="false"/>-->
+                <entry key="hibernate.query.startup_check" value="false"/>
+
+                <entry key="hibernate.show_sql" value="true"/>
+                <entry key="hibernate.format_sql" value="false"/>
+                <!--设置这种命名策略之后，bean中属性如userId在数据库存储需改的时候会是：user_id-->
+                <entry key="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy"/>
+                <!--<entry key="hibernate.hbm2ddl.auto" value="update"/>-->
 
                 <!--<entry key="hibernate.query.substitutions" value="${hibernate.query.substitutions}"/>-->
                 <!--<entry key="hibernate.default_batch_fetch_size" value="${hibernate.default_batch_fetch_size}"/>-->
