@@ -12,22 +12,28 @@
 
     <http auto-config="false" entry-point-ref="unAuthenticationEntryPoint">
         <!-- 访问除了静态资源所有的资源都要先经过系统认证-->
-        <intercept-url pattern="/**" access="authenticated"/>
+        <intercept-url pattern="/**" access="authenticated" requires-channel="any"/>
 
-        <custom-filter ref="loginFilter" position="FORM_LOGIN_FILTER"/>
-        <logout invalidate-session="true" logout-url="/logout" logout-success-url="/login/index"/>
+        <custom-filter position="FORM_LOGIN_FILTER" ref="loginFilter"/>
+        <custom-filter position="CONCURRENT_SESSION_FILTER" ref="currentSessionFilter"/>
+        <logout invalidate-session="true" logout-url="/logout" logout-success-url="/login/index"
+                delete-cookies="JSESSIONID"/>
         <csrf disabled="true"/>
         <!-- Uncomment to limit the number of sessions a user can have -->
-        <session-management invalid-session-url="/static/error/timeout.jsp">
-            <concurrency-control max-sessions="1" error-if-maximum-exceeded="true"/>
-        </session-management>
+        <session-management session-authentication-strategy-ref="sas"/>
     </http>
+    <!--配置concurrency-control需要在web.xml中添加监听器HttpSessionEventPublisher-->
+    <b:bean id="currentSessionFilter" class="org.springframework.security.web.session.ConcurrentSessionFilter">
+        <b:constructor-arg name="expiredUrl" value="/static/error/invalidSession.jsp"/>
+        <b:constructor-arg name="sessionRegistry" ref="sessionRegistry"/>
+    </b:bean>
     <!--自定义登录filter-->
     <b:bean id="loginFilter" class="org.dongchao.security.web.authentication.LoginFilter">
         <b:property name="filterProcessesUrl" value="/ss_login"/>
         <b:property name="authenticationManager" ref="authenticationManager"/>
         <b:property name="authenticationSuccessHandler" ref="authenticationSuccessHandler"/>
         <b:property name="authenticationFailureHandler" ref="authenticationFailureHandler"/>
+        <b:property name="sessionAuthenticationStrategy" ref="sas"/>
     </b:bean>
     <!--自定义FORM_LOGIN_FILTER后必须指定entry-point-ref-->
     <b:bean id="unAuthenticationEntryPoint" class="org.dongchao.security.web.authentication.UnAuthenticationEntryPoint">
@@ -42,18 +48,21 @@
         <b:property name="defaultFailureUrl" value="/login/index"/>
         <!--当配置exceptionMappings时，认证失败后会根据配置跳转到不同的页面，
             当exceptionMappings中找不到异常对应的配置时，才会跳转到defaultFailureUrl-->
-    <!--    <b:property name="exceptionMappings">
-            <b:map>
-                <b:entry key="" value=""/>
-            </b:map>
-        </b:property>-->
+        <!--    <b:property name="exceptionMappings">
+                <b:map>
+                    <b:entry key="" value=""/>
+                </b:map>
+            </b:property>-->
     </b:bean>
+
     <!--手动配置daoAuthenticationProvider的相关属性，一般不用重写-->
-    <b:bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+    <b:bean id="daoAuthenticationProvider"
+            class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
         <b:property name="hideUserNotFoundExceptions" value="false"/>
         <b:property name="userDetailsService" ref="userDetailsService"/>
         <!--<b:property name="passwordEncoder" ref="md5Encoder"/>-->
         <!--<b:property name="saltSource" ref="saltSource"/>-->
+        <b:property name="messageSource" ref="messageSource"/>a
     </b:bean>
     <b:bean id="userDetailsService" class="org.dongchao.security.core.userdetails.jdbc.MyJdbcDaoImpl">
         <b:property name="dataSource" ref="dataSource"/>
@@ -66,4 +75,25 @@
     <authentication-manager alias="authenticationManager">
         <authentication-provider ref="daoAuthenticationProvider"/>
     </authentication-manager>
+
+    <!--会话管理-->
+    <b:bean id="sas" class="org.springframework.security.web.authentication.session.CompositeSessionAuthenticationStrategy">
+        <b:constructor-arg name="delegateStrategies">
+            <b:list>
+                <b:bean class="org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy">
+                    <b:constructor-arg ref="sessionRegistry"/>
+                    <b:property name="maximumSessions" value="1" />
+                    <b:property name="exceptionIfMaximumExceeded" value="true" />
+                    <b:property name="messageSource" ref="messageSource"/>
+                </b:bean>
+                <b:bean class="org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy">
+                </b:bean>
+                <b:bean class="org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy">
+                    <b:constructor-arg ref="sessionRegistry"/>
+                </b:bean>
+            </b:list>
+        </b:constructor-arg>
+    </b:bean>
+    <b:bean id="sessionRegistry" class="org.springframework.security.core.session.SessionRegistryImpl" />
+
 </b:beans>
