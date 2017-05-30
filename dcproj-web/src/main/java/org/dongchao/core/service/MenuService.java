@@ -14,7 +14,7 @@ import java.util.List;
 public class MenuService {
     @Autowired
     private MenuDao menuDao;
-    public List<Menu> getMenus(){
-        return menuDao.findAllByParentIdIsNull();
+    public List<Menu> getMenus(String node){
+        return menuDao.findAllByParentIdEquals(node);
     }
 }
