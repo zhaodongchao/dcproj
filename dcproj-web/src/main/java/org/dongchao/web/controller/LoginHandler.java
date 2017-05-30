@@ -16,6 +16,6 @@ public class LoginHandler {
     }
     @RequestMapping(value = {"success"})
     public String loginSuccess(){
-        return "admin/homepage";
+        return "admin/login/main";
     }
 }
