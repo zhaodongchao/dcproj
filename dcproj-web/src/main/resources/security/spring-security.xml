@@ -100,5 +100,4 @@
         </b:constructor-arg>
     </b:bean>
     <b:bean id="sessionRegistry" class="org.springframework.security.core.session.SessionRegistryImpl" />
-
 </b:beans>

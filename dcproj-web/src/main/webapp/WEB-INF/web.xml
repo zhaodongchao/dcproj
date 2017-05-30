@@ -11,7 +11,22 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:application-context.xml,classpath:security/spring-security.xml</param-value>
     </context-param>
-
+    <!-- spring session ,将Session交给spring管理，
+         这个filter必须要配置为拦截所有的web应用请求，并且它应该是filter链中的第一个filter。
+         Spring Session filter会确保随后调用javax.servlet.http.HttpServletRequest的getSession()方法时，
+         都会返回Spring Session的HttpSession实例，而不是应用服务器默认的HttpSession。
+    -->
+    <filter>
+        <filter-name>springSessionRepositoryFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springSessionRepositoryFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+    <!--spring security 配置-->
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>

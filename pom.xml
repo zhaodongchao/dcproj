@@ -29,6 +29,7 @@
         <org.springframework.version>4.2.5.RELEASE</org.springframework.version>
         <org.spring.security.version>4.0.4.RELEASE</org.spring.security.version>
         <spring-data-jpa.version>1.10.1.RELEASE</spring-data-jpa.version>
+        <spring.session.version>1.2.2.RELEASE</spring.session.version>
         <org.hibernate.version>4.3.11.Final</org.hibernate.version>
         <hibernate-validator.version>5.2.2.Final</hibernate-validator.version>
         <jredis.version>2.7.3</jredis.version>
@@ -239,6 +240,18 @@
                 <artifactId>spring-security-config</artifactId>
                 <version>${org.spring.security.version}</version>
                 <scope>compile</scope>
+            </dependency>
+            <!-- spring session 实现Session的管理 -->
+            <dependency>
+                <groupId>org.springframework.session</groupId>
+                <artifactId>spring-session-data-redis</artifactId>
+                <version>${spring.session.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>biz.paluch.redis</groupId>
+                <artifactId>lettuce</artifactId>
+                <version>3.5.0.Final</version>
             </dependency>
             <dependency>
                 <groupId>redis.clients</groupId>

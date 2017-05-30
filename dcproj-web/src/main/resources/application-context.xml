@@ -176,6 +176,17 @@
         <!-- 如果不加默认到 使用classpath下的 ValidationMessages.properties -->
         <property name="validationMessageSource" ref="messageSource"/>
     </bean>
+    <!--官方说明：
+        this creates a Spring Bean with the name of springSessionRepositoryFilter that implements Filter.
+        The filter is what is in charge of replacing the HttpSession implementation to be backed by Spring Session.
+        In this instance Spring Session is backed by Redis.
+    -->
+    <bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration"/>
+    <!--官方说明：
+        We create a RedisConnectionFactory that connects Spring Session to the Redis Server-->
+    <bean class="org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory">
+        <property name="hostName" value="192.168.168.15"/>
+    </bean>
 
     <import resource="classpath:redis/spring-redis.xml"/>
     <import resource="classpath:spring-cxf-rest.xml"/>
