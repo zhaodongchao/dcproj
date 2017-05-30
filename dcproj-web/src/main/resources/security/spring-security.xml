@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
-    <debug/>
+   <!-- <debug/>-->
     <!-- 静态资源，不用权限 -->
     <http pattern="/static/**" security="none"/>
     <!--登录页面-->
@@ -17,8 +17,13 @@
         <custom-filter position="FORM_LOGIN_FILTER" ref="loginFilter"/>
         <custom-filter position="CONCURRENT_SESSION_FILTER" ref="currentSessionFilter"/>
         <logout invalidate-session="true" logout-url="/logout" logout-success-url="/login/index"
-                delete-cookies="JSESSIONID"/>
+        delete-cookies="JSESSIONID"/>
+        <!--此系统不允许匿名访问，禁用AnonymousAuthenticationFilter-->
+        <anonymous enabled="false"/>
+        <!--此系统暂时不考虑跨域攻击，禁用CsrfFilter -->
         <csrf disabled="true"/>
+        <headers disabled="true"/>
+
         <!-- Uncomment to limit the number of sessions a user can have -->
         <session-management session-authentication-strategy-ref="sas"/>
     </http>
@@ -62,7 +67,7 @@
         <b:property name="userDetailsService" ref="userDetailsService"/>
         <!--<b:property name="passwordEncoder" ref="md5Encoder"/>-->
         <!--<b:property name="saltSource" ref="saltSource"/>-->
-        <b:property name="messageSource" ref="messageSource"/>a
+        <b:property name="messageSource" ref="messageSource"/>
     </b:bean>
     <b:bean id="userDetailsService" class="org.dongchao.security.core.userdetails.jdbc.MyJdbcDaoImpl">
         <b:property name="dataSource" ref="dataSource"/>

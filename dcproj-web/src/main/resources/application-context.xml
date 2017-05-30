@@ -93,7 +93,7 @@
                 <entry key="hibernate.format_sql" value="false"/>
                 <!--设置这种命名策略之后，bean中属性如userId在数据库存储需改的时候会是：user_id-->
                 <entry key="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy"/>
-                <!--<entry key="hibernate.hbm2ddl.auto" value="update"/>-->
+               <!-- <entry key="hibernate.hbm2ddl.auto" value="update"/>-->
 
                 <!--<entry key="hibernate.query.substitutions" value="${hibernate.query.substitutions}"/>-->
                 <!--<entry key="hibernate.default_batch_fetch_size" value="${hibernate.default_batch_fetch_size}"/>-->
