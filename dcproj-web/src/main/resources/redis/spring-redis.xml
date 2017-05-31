@@ -44,10 +44,8 @@
         </constructor-arg>
     </bean>
 
-    <!-- jedis适用于redis单机环境-->
-    <!--<bean id="jedis" class="redis.clients.jedis.Jedis">-->
-        <!--<property name="dataSource" ref="jedisPool"/>-->
-    <!--</bean>-->
-
+    <bean id="jedisManager" class="org.dongchao.security.redis.JedisManager">
+        <constructor-arg name="jedisPool" ref="jedisPool"/>
+    </bean>
 
 </beans>
