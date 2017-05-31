@@ -13,7 +13,7 @@ public class JavaSerializable implements Serializable{
      * @param bytes 待反序列化的二进制字节
      * @return Object
      */
-    public static Object deSerializable(byte[] bytes) throws IOException, ClassNotFoundException {
+    public static Object deSerializable(byte[] bytes) {
         Object result = null;
         try {
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
